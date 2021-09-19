@@ -82,10 +82,8 @@ public class SendEmailUtil {
             }
         }
 
-
-        String htmlText = MessageFormat.format(buffer.toString(), system, logoPath, mailType, title, username, content, mark,
+        return MessageFormat.format(buffer.toString(), system, logoPath, mailType, title, username, content, mark,
                 time, PropertiesReader.getProerties("C:\\Users\\admin\\Desktop\\新建文件夹\\kantools\\src\\main\\java\\system.properties").getProperty("system.protocol") + PropertiesReader.getProerties("C:\\Users\\admin\\Desktop\\新建文件夹\\kantools\\src\\main\\java\\system.properties").getProperty("system.host"));
-        return htmlText;
     }
 
 
@@ -120,7 +118,6 @@ public class SendEmailUtil {
             if (email == null) {
                 for (String email : emailList) {
                     message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
-                    System.out.println(email);
                     Transport.send(message);
                 }
             } else {
