@@ -1,11 +1,15 @@
 package com.coden.kantools.util;
 
 import com.sun.mail.util.MailSSLSocketFactory;
+import org.springframework.core.io.ClassPathResource;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,14 +63,15 @@ public class SendEmailUtil {
 
 
     private String buildContent() {
-        String fileName = "C:\\Users\\admin\\Desktop\\新建文件夹\\kantools\\src\\main\\java\\com\\coden\\kantools\\util\\post.html";
+        String fileName = PropertiesReader.getSystemProperty("sys.mail.template");
         InputStream inputStream = null;
         BufferedReader fileReader = null;
         StringBuffer buffer = new StringBuffer();
         String line = "";
         try {
-//            inputStream = SendEmailUtil.class.getClassLoader().getResourceAsStream(fileName);
-            inputStream = new FileInputStream(new File(fileName));
+            inputStream = new ClassPathResource(fileName).getInputStream();
+//            inputStream = this/getClass().getClassLoader().getResourceAsStream(fileName);
+//            inputStream = new FileInputStream(new File(fileName));
             fileReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             while ((line = fileReader.readLine()) != null) {
                 buffer.append(line);
@@ -82,8 +87,7 @@ public class SendEmailUtil {
             }
         }
 
-        return MessageFormat.format(buffer.toString(), system, logoPath, mailType, title, username, content, mark,
-                time, PropertiesReader.getProerties("C:\\Users\\admin\\Desktop\\新建文件夹\\kantools\\src\\main\\java\\system.properties").getProperty("system.protocol") + PropertiesReader.getProerties("C:\\Users\\admin\\Desktop\\新建文件夹\\kantools\\src\\main\\java\\system.properties").getProperty("system.host"));
+        return MessageFormat.format(buffer.toString(), system, logoPath, mailType, title, username, content, mark, time);
     }
 
 
@@ -105,7 +109,7 @@ public class SendEmailUtil {
 
             Session session = Session.getDefaultInstance(properties, new Authenticator() {
                 public PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("1131429439@qq.com", "oalwdgceseyobaea");
+                    return new PasswordAuthentication(from, "oalwdgceseyobaea");
                 }
             });
 

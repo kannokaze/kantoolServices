@@ -29,9 +29,9 @@ public class PropertiesReader {
         return systemProperties;
     }
 
-    public static Properties getProerties(ClassLoader classLoader) {
+    public static Properties getProerties(ClassLoader classLoader, String propertiesName) {
         Properties systemProperties = new Properties();
-        InputStream in = classLoader.getResourceAsStream("system.properties");
+        InputStream in = classLoader.getResourceAsStream(propertiesName);
 
         try {
             systemProperties.load(in);
@@ -47,9 +47,9 @@ public class PropertiesReader {
         return systemProperties;
     }
 
-    public static Properties getProerties(Class<?> clazz) {
+    public static Properties getProerties(Class<?> clazz, String propertiesName) {
         Properties systemProperties = new Properties();
-        InputStream in = clazz.getResourceAsStream("system.properties");
+        InputStream in = clazz.getResourceAsStream(propertiesName);
 
         try {
             systemProperties.load(in);
@@ -63,5 +63,9 @@ public class PropertiesReader {
             }
         }
         return systemProperties;
+    }
+
+    public static String getSystemProperty(String propertiesName) {
+        return PropertiesReader.getProerties(PropertiesReader.class, "system.properties").getProperty(propertiesName);
     }
 }
