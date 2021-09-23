@@ -1,4 +1,4 @@
-package com.coden.kantools.bean;
+package com.coden.kantools.enumbags;
 
 public enum LoginStatus {
     Success(0, "0000"),

@@ -6,7 +6,10 @@ import com.coden.kantools.service.SystemService;
 import com.coden.kantools.util.DataOperater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,12 +35,6 @@ public class SystemController {
     }
 
 
-    @RequestMapping(value = "/setSystemMailAccount", method = RequestMethod.POST)
-    public boolean SystemMailAccount(@RequestBody MailContextRequest mailContextRequest) {
-
-        return systemService.sendSystemMail(mailContextRequest.getMailList(),
-                DataOperater.bean2HashMap(mailContextRequest.getMailContext()));
-    }
 
 
 }
