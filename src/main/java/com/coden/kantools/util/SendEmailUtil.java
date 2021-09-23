@@ -1,7 +1,9 @@
 package com.coden.kantools.util;
 
 import com.sun.mail.util.MailSSLSocketFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -29,6 +31,8 @@ public class SendEmailUtil {
     private String mark;
     private String time;
 
+    @Autowired
+    ResourceLoader resourceLoader;
 
     public SendEmailUtil(ArrayList<String> emailList, HashMap<String, String> mailText) {
         this.emailList = emailList;
@@ -70,8 +74,10 @@ public class SendEmailUtil {
         String line = "";
         try {
             inputStream = new ClassPathResource(fileName).getInputStream();
-//            inputStream = this/getClass().getClassLoader().getResourceAsStream(fileName);
+
+//            inputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
 //            inputStream = new FileInputStream(new File(fileName));
+//            inputStream = resourceLoader.getResource("classpath:static/a.html").getInputStream();
             fileReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             while ((line = fileReader.readLine()) != null) {
                 buffer.append(line);

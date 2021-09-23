@@ -21,13 +21,13 @@ public class SystemService {
 
         if (new SendEmailUtil(mailList, context).send()) {
             List list = new ArrayList<kurumi_mail_log>();
-
+            kurumi_mail_log kml = null;
             for (Object mail : mailList) {
                 context.put("email", mail);
-                list.add(DataOperater.hashMapToBean(kurumi_mail_log.class, context));
+                kml = DataOperater.hashMapToBean(kurumi_mail_log.class, context);
+                list.add(kml);
+                kurumiMailLogMapper.insert(kml);
             }
-
-//            kurumiMailLogMapper.insertList(list);
             return true;
         }
         return false;

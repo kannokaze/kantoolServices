@@ -1,18 +1,23 @@
 package com.coden.kantools.model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class kurumi_mail_log implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
     private String email;
     private String system;
-    private String logopath;
+    private String logoPath;
     private String username;
     private String title;
     private String mark;
-    private Byte sender;
-    private String mailtype;
+    private String sender;
+    private String mailType;
+    private Date createTime;
+
     private String content;
 
     public Integer getId() {
@@ -39,12 +44,13 @@ public class kurumi_mail_log implements Serializable {
         this.system = system == null ? null : system.trim();
     }
 
-    public String getLogopath() {
-        return logopath;
+
+    public String getLogoPath() {
+        return logoPath;
     }
 
-    public void setLogopath(String logopath) {
-        this.logopath = logopath == null ? null : logopath.trim();
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
     }
 
     public String getUsername() {
@@ -71,20 +77,20 @@ public class kurumi_mail_log implements Serializable {
         this.mark = mark == null ? null : mark.trim();
     }
 
-    public Byte getSender() {
+    public String getSender() {
         return sender;
     }
 
-    public void setSender(Byte sender) {
+    public void setSender(String sender) {
         this.sender = sender;
     }
 
-    public String getMailtype() {
-        return mailtype;
+    public String getMailType() {
+        return mailType;
     }
 
-    public void setMailtype(String mailtype) {
-        this.mailtype = mailtype == null ? null : mailtype.trim();
+    public void setMailType(String mailType) {
+        this.mailType = mailType;
     }
 
     public String getContent() {
@@ -95,6 +101,24 @@ public class kurumi_mail_log implements Serializable {
         this.content = content == null ? null : content.trim();
     }
 
+
+    public String getCreateTime() {
+        if (this.createTime == null) {
+            return "";
+        }
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.createTime);
+    }
+
+    public void setCreateTime(String createTime) {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            this.createTime = f.parse(createTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -104,13 +128,14 @@ public class kurumi_mail_log implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", email=").append(email);
         sb.append(", system=").append(system);
-        sb.append(", logopath=").append(logopath);
+        sb.append(", logopath=").append(logoPath);
         sb.append(", username=").append(username);
         sb.append(", title=").append(title);
         sb.append(", mark=").append(mark);
         sb.append(", sender=").append(sender);
-        sb.append(", mailtype=").append(mailtype);
+        sb.append(", mailtype=").append(mailType);
         sb.append(", content=").append(content);
+        sb.append(", createTime=").append(createTime.toString());
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
