@@ -1,4 +1,4 @@
-package com.coden.kantools.respronseBody;
+package com.coden.kantools.util.responder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

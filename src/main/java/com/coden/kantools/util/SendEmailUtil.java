@@ -77,7 +77,7 @@ public class SendEmailUtil {
 
 //            inputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
 //            inputStream = new FileInputStream(new File(fileName));
-//            inputStream = resourceLoader.getResource("classpath:static/a.html").getInputStream();
+//            inputStream = resourceLoader.getResource("classpath:static/status.html").getInputStream();
             fileReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             while ((line = fileReader.readLine()) != null) {
                 buffer.append(line);

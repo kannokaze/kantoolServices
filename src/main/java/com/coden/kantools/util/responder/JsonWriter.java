@@ -1,4 +1,4 @@
-package com.coden.kantools.respronseBody;
+package com.coden.kantools.util.responder;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
