@@ -1,0 +1,57 @@
+Manifest-Version: 1.0
+Main-Class: com.coden.kantools.KantoolsApplication
+Class-Path: groovy-xml-2.5.14.jar netty-resolver-4.1.63.Final.jar darkla
+ f-windows-2.1.1.jar miglayout-core-5.2.jar httpcore-4.4.14.jar netty-co
+ mmon-4.1.63.Final.jar darklaf-macos-2.1.1.jar bsh-2.0b6.jar spring-oxm-
+ 5.3.6.jar netty-codec-4.1.63.Final.jar spring-tx-5.3.6.jar mybatis-gene
+ rator-core-1.3.6.jar spring-context-support-5.3.6.jar lettuce-core-6.0.
+ 4.RELEASE.jar jackson-annotations-2.11.4.jar spring-boot-starter-web-2.
+ 4.5.jar javax.websocket-api-1.0.jar jcl-over-slf4j-1.7.30.jar commons-i
+ o-2.6.jar groovy-json-2.5.14.jar javax.inject-1.jar ApacheJMeter-5.3.ja
+ r log4j-api-2.13.3.jar groovy-jsr223-2.5.14.jar spring-boot-starter-2.4
+ .5.jar jorphan-5.3.jar freemarker-2.3.31.jar rhino-1.7.12.jar castor-co
+ re-1.4.1.jar jodd-props-5.0.13.jar log4j-core-2.13.3.jar tika-core-1.24
+ .1.jar xstream-1.4.11.1.jar accessors-smart-1.2.jar groovy-templates-2.
+ 5.14.jar xercesImpl-2.12.0.jar tomcat-embed-websocket-9.0.45.jar spring
+ -data-redis-2.4.8.jar spring-data-commons-2.4.8.jar bsf-2.4.0.jar mybat
+ is-spring-1.3.2.jar slf4j-api-1.7.30.jar spring-core-5.3.6.jar jmespath
+ -jackson-0.5.0.jar slf4j-log4j12-1.7.30.jar netty-transport-4.1.63.Fina
+ l.jar spring-test-5.3.6.jar jakarta.annotation-api-1.3.5.jar commons-ne
+ t-3.6.jar httpcore-nio-4.4.14.jar json-smart-2.3.jar Saxon-HE-9.9.1-7.j
+ ar jackson-datatype-jdk8-2.11.4.jar jodd-log-5.0.13.jar jcharts-0.7.5.j
+ ar xmlgraphics-commons-2.3.jar javax.ws.rs-api-2.0.jar log4j-slf4j-impl
+ -2.13.3.jar groovy-jmx-2.5.14.jar commons-pool2-2.9.0.jar ApacheJMeter_
+ java-5.3.jar spring-beans-5.3.6.jar jsoup-1.13.1.jar tika-parsers-1.24.
+ 1.jar netty-buffer-4.1.63.Final.jar caffeine-2.8.8.jar serializer-2.7.2
+ .jar rsyntaxtextarea-3.1.0.jar asm-7.3.1.jar jodd-lagarto-5.0.13.jar my
+ sql-connector-java-8.0.23.jar ApacheJMeter_components-5.3.jar httpasync
+ client-4.1.4.jar log4j-1.2-api-2.13.3.jar tomcat-embed-core-9.0.45.jar 
+ groovy-datetime-2.5.14.jar spring-orm-5.3.6.jar jackson-datatype-jsr310
+ -2.11.4.jar commons-collections-3.2.2.jar ph-commons-9.4.1.jar darklaf-
+ utils-2.1.1.jar spring-boot-autoconfigure-2.4.5.jar spring-data-keyvalu
+ e-2.4.8.jar jackson-module-parameter-names-2.11.4.jar mybatis-3.4.6.jar
+  jtidy-r938.jar darklaf-property-loader-2.1.1.jar oro-2.0.8.jar jna-5.5
+ .0.jar commons-logging-1.2.jar spring-boot-starter-data-redis-2.4.5.jar
+  spring-jcl-5.3.6.jar spring-jdbc-5.3.6.jar jackson-databind-2.9.4.jar 
+ commons-fileupload-1.3.3.jar dnsjava-2.1.9.jar xpp3_min-1.1.4c.jar spri
+ ng-boot-starter-jdbc-2.4.5.jar javax.servlet.jsp.jstl-api-1.2.1.jar che
+ cker-qual-3.8.0.jar error_prone_annotations-2.4.0.jar groovy-sql-2.5.14
+ .jar spring-webmvc-5.3.6.jar fastjson-1.2.47.jar commons-collections4-4
+ .1.jar spring-aop-5.3.6.jar jackson-core-2.11.4.jar commons-lang3-3.9.j
+ ar javax.annotation-api-1.2.jar jmespath-core-0.5.0.jar jodd-core-5.0.1
+ 3.jar snakeyaml-1.27.jar commons-codec-1.15.jar jakarta.el-3.0.3.jar ca
+ stor-xml-1.4.1.jar netty-handler-4.1.63.Final.jar httpclient-4.5.6.jar 
+ commons-text-1.8.jar xalan-2.7.2.jar json-path-2.4.0.jar aspectjweaver-
+ 1.8.13.jar spring-expression-5.3.6.jar ApacheJMeter_core-5.3.jar log4j-
+ 1.2.17.jar spring-boot-starter-json-2.4.5.jar reactor-core-3.4.5.jar da
+ rklaf-core-2.1.1.jar mail-1.5.0-b01.jar spring-context-5.3.6.jar common
+ s-math3-3.6.1.jar dec-0.1.2.jar spring-boot-starter-log4j-1.3.8.RELEASE
+ .jar lombok-1.18.12.jar darklaf-platform-base-2.1.1.jar xmlpull-1.1.3.1
+ .jar miglayout-swing-5.2.jar druid-1.1.9.jar HikariCP-3.4.5.jar javax.t
+ ransaction-api-1.2.jar jul-to-slf4j-1.7.30.jar apiguardian-api-1.1.0.ja
+ r reactive-streams-1.0.3.jar spring-boot-starter-tomcat-2.4.5.jar httpm
+ ime-4.5.13.jar javax.activation-1.2.0.jar xml-apis-1.4.01.jar jxlayer-3
+ .0.4.jar ApacheJMeter_http-5.3.jar spring-boot-2.4.5.jar ph-css-6.2.2.j
+ ar groovy-2.5.14.jar spring-web-5.3.6.jar darklaf-native-utils-2.1.1.ja
+ r darklaf-theme-2.1.1.jar svgSalamander-1.1.2.1.jar
+
