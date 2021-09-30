@@ -1,14 +1,12 @@
 package com.coden.kantools.util;
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
+import java.util.Map;
 
-@Service
+//@Repository
 public class FTPOperater {
 
     private String ftpIp;
@@ -17,7 +15,14 @@ public class FTPOperater {
     private String ftpPass;
     private FTPClient ftpClient;
 
-    private boolean connectServer(String ip, int port, String user, String pwd) {
+    public FTPOperater(String ftpIp, Integer ftpPort, String ftpUser, String ftpPass) {
+        this.ftpIp = ftpIp;
+        this.ftpPort = ftpPort;
+        this.ftpUser = ftpUser;
+        this.ftpPass = ftpPass;
+    }
+
+    public boolean connectServer(String ip, int port, String user, String pwd) {
         ftpClient = new FTPClient();
         Boolean isSuccess = false;
         try {
@@ -29,35 +34,34 @@ public class FTPOperater {
         return isSuccess;
     }
 
-    public boolean uploadFile(String remotePath, List<File> fileList) throws IOException {
+    public boolean uploadFile(String remotePath, Map<String, InputStream> fileList) throws IOException {
         boolean upload = true;
-        FileInputStream fileInputStream = null;
         //connect to ftpServer
         if (connectServer(ftpIp, ftpPort, ftpUser, ftpPass)) {
             try {
                 ftpClient.changeWorkingDirectory(remotePath);
-                ftpClient.setBufferSize(1024);
+                ftpClient.setBufferSize(1024 * 1024 * 1024 * 1024);
                 ftpClient.setControlEncoding("UTF-8");
                 ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
                 ftpClient.enterLocalPassiveMode();
-                for (File fileItem : fileList
-                ) {
-                    fileInputStream = new FileInputStream(fileItem);
-                    ftpClient.storeFile(fileItem.getName(), fileInputStream);
+                for (String fileItem : fileList.keySet()) {
+                    System.out.println(ftpClient.storeFile(fileItem, fileList.get(fileItem)));
+                    fileList.get(fileItem).close();
                 }
             } catch (IOException e) {
                 upload = false;
             } finally {
-                fileInputStream.close();
                 ftpClient.disconnect();
             }
+        } else {
+            upload = false;
         }
         return upload;
     }
 
-    public boolean uploadToFtp(String remotePath, String fileName, File file) throws IOException {
+    public boolean uploadToFtp(String remotePath, String fileName, InputStream inputStream) throws IOException {
         boolean upload = true;
-        FileInputStream fileInputStream = null;
+
         //connect to ftpServer
         if (connectServer(ftpIp, ftpPort, ftpUser, ftpPass)) {
             try {
@@ -68,14 +72,16 @@ public class FTPOperater {
                 ftpClient.enterLocalPassiveMode();
 
                 //上传文件 参数：上传后的文件名，输入流
-                fileInputStream = new FileInputStream(file);
-                upload = ftpClient.storeFile(fileName, fileInputStream);
+                upload = ftpClient.storeFile(fileName, inputStream);
+
             } catch (IOException e) {
                 upload = false;
             } finally {
-                fileInputStream.close();
+                inputStream.close();
                 ftpClient.disconnect();
             }
+        } else {
+            upload = false;
         }
         return upload;
     }

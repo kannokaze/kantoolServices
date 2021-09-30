@@ -3,7 +3,9 @@ package com.coden.kantools.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.UUID;
 
 @Controller
 @ResponseBody
@@ -20,6 +23,49 @@ public class helloController {
     @RequestMapping("/hello")
     String hellos() {
         return "hello word!";
+    }
+
+    @PostMapping("/upload1")
+    public String upload1(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return "上传失败，请选择文件";
+        }
+
+        String fileName = file.getOriginalFilename();
+        String filePath = "/Users/itinypocket/workspace/temp/";
+        File dest = new File(filePath + fileName);
+        try {
+            file.transferTo(dest);
+            return "上传成功";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败！";
+    }
+
+
+    @PostMapping("/upload2")
+    //@RequestMapping(value="/upload2.do", method = RequestMethod.POST)
+    //上传的文件会转换成MultipartFile对象，file名字对应html中上传控件的name
+    public String upload2(MultipartFile[] files) throws IOException {
+        if (files.length == 0) {
+            return "请选择要上传的文件";
+        }
+        for (MultipartFile multipartFile : files) {
+            if (multipartFile.isEmpty()) {
+                return "文件上传失败";
+            }
+
+            byte[] fileBytes = multipartFile.getBytes();
+            String filePath = "C:\\Users\\Administrator\\Desktop\\images\\";
+            //取得当前上传文件的文件名称
+            String originalFilename = multipartFile.getOriginalFilename();
+            //生成文件名
+            String fileName = UUID.randomUUID() + "&" + originalFilename;
+//            FileUtils.uploadFile(fileBytes, filePath, fileName);
+        }
+
+        return "文件上传完毕";
     }
 
 
@@ -84,4 +130,6 @@ public class helloController {
         }
         inputStream.close();
     }
+
+
 }

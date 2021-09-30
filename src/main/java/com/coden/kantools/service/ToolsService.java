@@ -12,5 +12,10 @@ public class ToolsService {
 //        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 //        ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(null);
 //        return responseEntity;
+//        CreatePhoneTools.createPhoneNumber(CreatePhoneTools.FRISTNUMLIST,5,true);
 //    }
+
+
+
+
 }

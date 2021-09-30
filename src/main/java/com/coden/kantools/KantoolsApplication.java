@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.coden.kantools.controller", "com.coden.kantools.service", "com.coden.kantools.model"})
+@ComponentScan(basePackages = {"com.coden.kantools.controller", "com.coden.kantools.service", "com.coden.kantools.model", "com.coden.kantools.util"})
 @MapperScan("com.coden.kantools.mapper")
 public class KantoolsApplication {
 
