@@ -66,8 +66,8 @@ public class FileUpDownService {
         return "文件上传完毕";
     }
 
-    public InputStream downloadSingle(String path, String fileName) {
-        return ftpOperater.downloadSingle(path, fileName);
+    public InputStream downloadSingle(String path) {
+        return ftpOperater.downloadSingle(path);
     }
 
 }

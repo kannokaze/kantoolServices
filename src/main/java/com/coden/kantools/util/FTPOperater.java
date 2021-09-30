@@ -89,7 +89,7 @@ public class FTPOperater {
     }
 
 
-    public InputStream downloadSingle(String remotePath, String fileName) {
+    public InputStream downloadSingle(String fileName) {
         InputStream is = null;
         if (connectServer(ftpIp, ftpPort, ftpUser, ftpPass)) {
 
@@ -99,7 +99,6 @@ public class FTPOperater {
                 ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
                 ftpClient.enterLocalPassiveMode();
 
-                ftpClient.changeWorkingDirectory(remotePath);
                 is = ftpClient.retrieveFileStream(fileName);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
