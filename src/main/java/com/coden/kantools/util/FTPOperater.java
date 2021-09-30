@@ -2,8 +2,10 @@ package com.coden.kantools.util;
 
 import org.apache.commons.net.ftp.FTPClient;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.SocketException;
 import java.util.Map;
 
 //@Repository
@@ -34,7 +36,7 @@ public class FTPOperater {
         return isSuccess;
     }
 
-    public boolean uploadFile(String remotePath, Map<String, InputStream> fileList) throws IOException {
+    public boolean uploadFileList(String remotePath, Map<String, InputStream> fileList) throws IOException {
         boolean upload = true;
         //connect to ftpServer
         if (connectServer(ftpIp, ftpPort, ftpUser, ftpPass)) {
@@ -59,7 +61,7 @@ public class FTPOperater {
         return upload;
     }
 
-    public boolean uploadToFtp(String remotePath, String fileName, InputStream inputStream) throws IOException {
+    public boolean uploadFile(String remotePath, String fileName, InputStream inputStream) throws IOException {
         boolean upload = true;
 
         //connect to ftpServer
@@ -85,4 +87,29 @@ public class FTPOperater {
         }
         return upload;
     }
+
+
+    public InputStream downloadSingle(String remotePath, String fileName) {
+        InputStream is = null;
+        if (connectServer(ftpIp, ftpPort, ftpUser, ftpPass)) {
+
+            try {
+                ftpClient.setBufferSize(1024);
+                ftpClient.setControlEncoding("UTF-8");
+                ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+                ftpClient.enterLocalPassiveMode();
+
+                ftpClient.changeWorkingDirectory(remotePath);
+                is = ftpClient.retrieveFileStream(fileName);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (SocketException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return is;
+    }
+
 }

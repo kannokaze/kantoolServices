@@ -1,13 +1,27 @@
 package com.coden.kantools.controller;
 
+import com.coden.kantools.util.VerifyCodeUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @ResponseBody
 @RequestMapping("/api/security")
 public class SecurityController {
+
+
+    @GetMapping(value = "/verifyCode")
+    public void getVerifyCode(HttpServletResponse response, HttpSession session) throws IOException {
+
+        VerifyCodeUtil.outputImage(130, 40, response.getOutputStream(), VerifyCodeUtil.generateVerifyCode(4));
+    }
+
 
 //    @RequestMapping(value = "/login", method = RequestMethod.POST)
 

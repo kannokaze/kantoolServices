@@ -3,9 +3,7 @@ package com.coden.kantools.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -13,59 +11,15 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.UUID;
 
 @Controller
 @ResponseBody
 @RequestMapping(value = "/api", produces = "application/json;charset=UTF-8")
-public class helloController {
+public class HelloController {
 
     @RequestMapping("/hello")
     String hellos() {
         return "hello word!";
-    }
-
-    @PostMapping("/upload1")
-    public String upload1(@RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            return "上传失败，请选择文件";
-        }
-
-        String fileName = file.getOriginalFilename();
-        String filePath = "/Users/itinypocket/workspace/temp/";
-        File dest = new File(filePath + fileName);
-        try {
-            file.transferTo(dest);
-            return "上传成功";
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "上传失败！";
-    }
-
-
-    @PostMapping("/upload2")
-    //@RequestMapping(value="/upload2.do", method = RequestMethod.POST)
-    //上传的文件会转换成MultipartFile对象，file名字对应html中上传控件的name
-    public String upload2(MultipartFile[] files) throws IOException {
-        if (files.length == 0) {
-            return "请选择要上传的文件";
-        }
-        for (MultipartFile multipartFile : files) {
-            if (multipartFile.isEmpty()) {
-                return "文件上传失败";
-            }
-
-            byte[] fileBytes = multipartFile.getBytes();
-            String filePath = "C:\\Users\\Administrator\\Desktop\\images\\";
-            //取得当前上传文件的文件名称
-            String originalFilename = multipartFile.getOriginalFilename();
-            //生成文件名
-            String fileName = UUID.randomUUID() + "&" + originalFilename;
-//            FileUtils.uploadFile(fileBytes, filePath, fileName);
-        }
-
-        return "文件上传完毕";
     }
 
 
@@ -115,7 +69,7 @@ public class helloController {
 
     @RequestMapping("/downloadLocal")
     public void downloadLocal(String path, HttpServletResponse response) throws IOException {
-// 读到流中
+        // 读到流中
         InputStream inputStream = new FileInputStream(path);// 文件的存放路径
         response.reset();
         response.setContentType("application/octet-stream");
@@ -124,7 +78,7 @@ public class helloController {
         ServletOutputStream outputStream = response.getOutputStream();
         byte[] b = new byte[1024];
         int len;
-//从输入流中读取一定数量的字节，并将其存储在缓冲区字节数组中，读到末尾返回-1
+        //从输入流中读取一定数量的字节，并将其存储在缓冲区字节数组中，读到末尾返回-1
         while ((len = inputStream.read(b)) > 0) {
             outputStream.write(b, 0, len);
         }

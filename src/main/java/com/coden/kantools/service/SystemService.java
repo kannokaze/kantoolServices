@@ -16,6 +16,7 @@ public class SystemService {
     @Autowired
     kurumi_mail_logMapper kurumiMailLogMapper;
 
+
     public boolean sendSystemMail(ArrayList mailList, HashMap context) {
 
         if (new SendEmailUtil(mailList, context).send()) {
