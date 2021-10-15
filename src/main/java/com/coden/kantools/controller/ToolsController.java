@@ -1,6 +1,7 @@
 package com.coden.kantools.controller;
 
 import com.coden.kantools.service.ToolsService;
+import com.coden.kantools.service.jmx.MyDefaultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -89,5 +90,36 @@ public class ToolsController {
         }
         inputStream.close();
     }
+
+
+    @PostMapping("/outputJMX")
+    public void generateJMX(String path, HttpServletResponse response) throws Exception {
+        // 读到流中
+        InputStream inputStream = null;// 文件的存放路径
+        MyDefaultGenerator myDefaultGenerator = new MyDefaultGenerator();
+
+        System.out.println(path);
+        // 读到流中
+        inputStream = myDefaultGenerator.generate(path, "D:\\jmeter-script\\");
+        System.out.println(inputStream);
+        response.reset();
+        response.setContentType("application/octet-stream");
+        response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("", "UTF-8"));
+        ServletOutputStream outputStream = response.getOutputStream();
+        byte[] b = new byte[1024];
+        int len;
+        //从输入流中读取一定数量的字节，并将其存储在缓冲区字节数组中，读到末尾返回-1
+        while ((len = inputStream.read(b)) > 0) {
+            outputStream.write(b, 0, len);
+        }
+        inputStream.close();
+
+    }
+
+    @PostMapping("/generateJMX")
+    public void generateJMXToSystem(String path) {
+
+    }
+
 
 }

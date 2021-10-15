@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,10 +44,11 @@ public class FileUpDownController {
     }
 
     @PostMapping("/download")
-    public void download(@RequestBody String path, HttpServletResponse response) throws IOException {
+    public void download(String path, HttpServletResponse response) throws IOException {
 
+        System.out.println(path);
         // 读到流中
-        InputStream inputStream = fileUpDownService.downloadSingle("/", "/a1bc70ab-478b-4b51-bd42-3f9fe5e6938f.txt");
+        InputStream inputStream = fileUpDownService.downloadSingle(path);
         response.reset();
         response.setContentType("application/octet-stream");
         response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("", "UTF-8"));
@@ -60,16 +60,15 @@ public class FileUpDownController {
             outputStream.write(b, 0, len);
         }
         inputStream.close();
-
     }
 
 
     @PostMapping("/download2")
-    private ResponseEntity<byte[]> outInternshipTable(@RequestBody String path) throws IOException {
+    private ResponseEntity<byte[]> outInternshipTable(String path) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentDispositionFormData("attachment", URLEncoder.encode("", "UTF-8"));
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        InputStream inputStream = fileUpDownService.downloadSingle("/", "/f88854ee-f45d-4aa3-bda9-7ecf83ef05b4.apk");
+        InputStream inputStream = fileUpDownService.downloadSingle(path);
         return new ResponseEntity<byte[]>(IOUtils.toByteArray(inputStream), headers, HttpStatus.CREATED);
     }
 }
