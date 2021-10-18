@@ -20,6 +20,7 @@ package com.coden.kantools.service.jmx;
 
 import com.coden.kantools.bean.jmx.*;
 import com.coden.kantools.util.FTPOperater;
+import com.coden.kantools.util.InputStreamCache;
 import com.coden.kantools.util.ModelUtils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -34,6 +35,7 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -41,7 +43,7 @@ import java.net.URL;
 import java.util.*;
 
 
-@SuppressWarnings("rawtypes")
+@Service
 public class MyDefaultGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MyDefaultGenerator.class);
@@ -54,16 +56,16 @@ public class MyDefaultGenerator {
         return requestBody != null && requestBody.getContent() != null && !requestBody.getContent().isEmpty() ? requestBody.getContent().keySet() : Collections.emptySet();
     }
 
-    public static void main(String[] args) {
-        MyDefaultGenerator s = new MyDefaultGenerator();
-        try {
-            s.generate("http://localhost:8082//v2/api-docs", "D:\\jmeter-script\\");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        MyDefaultGenerator s = new MyDefaultGenerator();
+//        try {
+//            s.generate("http://localhost:8082//v2/api-docs");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    public InputStream generate(String swaggerSourceLocation, String outPutDir) throws Exception {
+    public InputStream generate(String swaggerSourceLocation) throws Exception {
 
         //step1 :解析swagger内容，生成openApi
         SwaggerParseResult swaggerParseResult = new SwaggerParser().readWithInfo(swaggerSourceLocation, null);
@@ -71,31 +73,23 @@ public class MyDefaultGenerator {
         //step2: 封装模板参数对象
         TemplateParamVO templateParamVO = prepareTemplateData();
         //step3: 填充模板
-
-        return paddingTemplate(templateParamVO, outPutDir);
+        return paddingTemplate(templateParamVO);
     }
 
-    public InputStream paddingTemplate(TemplateParamVO templateParamVO, String outPutDir) throws Exception {
+    public InputStream paddingTemplate(TemplateParamVO templateParamVO) throws Exception {
         Configuration configuration = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
         configuration.setClassForTemplateLoading(this.getClass(), "/templates");
         configuration.setDefaultEncoding("utf-8");
         Template template = configuration.getTemplate("template.jmx");
-//        File fileDir = new File(outPutDir);
-//        if (!fileDir.exists()) {
-//            fileDir.mkdir();
-//        }
 
-
-        File f = new File(outPutDir + "auto_test.jmx");
-
-        Writer out = new FileWriter(f);
+        OutputStream op = new ByteArrayOutputStream();
+        Writer out = new OutputStreamWriter(op);
         template.process(templateParamVO, out);
 
-        InputStream is = new FileInputStream(f);
-        ftpOperater.uploadFile("/", "13g13223.jmx", is);
-//        is.close();
-//        out.close();
-        return is;
+        InputStream is = new ByteArrayInputStream(((ByteArrayOutputStream) op).toByteArray());
+        InputStreamCache inputStreamCache = new InputStreamCache(is);
+        ftpOperater.uploadFile("/", UUID.randomUUID() + ".jmx", inputStreamCache.getInputStream());
+        return inputStreamCache.getInputStream();
     }
 
     private Map<String, TagNode> groupTagWithName() {

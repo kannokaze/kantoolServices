@@ -79,7 +79,7 @@ public class FTPOperater {
             } catch (IOException e) {
                 upload = false;
             } finally {
-                inputStream.close();
+//                inputStream.close();
                 ftpClient.disconnect();
             }
         } else {
