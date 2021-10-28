@@ -17,6 +17,8 @@ VOLUME /tmp
 #暴露8080端口
 EXPOSE 8080
 
+
+
 #定义参数
 #ARG JAR_FILE
 #应用构建成功后的jar文件被复制到镜像内，名字也改成了app.jar
