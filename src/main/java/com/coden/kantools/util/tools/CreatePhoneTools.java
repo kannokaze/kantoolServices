@@ -6,8 +6,10 @@ import java.util.List;
 
 public class CreatePhoneTools {
 
-    public static String[] FRISTNUMLIST = {};
-//    public static List createPhoneNumber(ArrayList<String> firstNumList, int len) {
+    public static String[] FRISTNUMLIST = {"130", "131", "132", "145", "155", "156", "185", "186", "176", "175", "133", "149", "153", "180", "181", "189", "177", "134", "139", "147",
+            "150", "152"};
+
+    //    public static List createPhoneNumber(ArrayList<String> firstNumList, int len) {
 //        ArrayList re = new ArrayList();
 //        String first = null;
 //        String last = null;
@@ -21,8 +23,26 @@ public class CreatePhoneTools {
 //        }
 //        return re;
 //    }
+//    public static ArrayList unrepeated(List reArray, String[] firstNumList) {
+//        HashSet reSet = new HashSet(reArray);
+//        ArrayList NewArray = new ArrayList();
+//        System.out.println("Now is " + reSet.size());
+//        if (reSet.size() < reArray.size()) {
+//            int diff =  reArray.size() - reSet.size();
+//            NewArray.addAll(reSet);
+//            NewArray.addAll(createPhoneNumber(firstNumList, diff, false));
+//            System.out.println("this is "+ diff + "___" + NewArray.size());
+//            NewArray = unrepeated(NewArray, firstNumList);
+//
+//        }else{
+//            NewArray = (ArrayList) reArray;
+//        }
+//
+//        return NewArray;
+//    }
 
-    public static List createPhoneNumber(String[] firstNumList, int len, boolean unrepeat) {
+
+    public static ArrayList<String> createPhoneNumber(String[] firstNumList, int len, boolean unrepeat) {
         ArrayList re = new ArrayList();
         String first;
         String last;
@@ -42,23 +62,6 @@ public class CreatePhoneTools {
         return re;
     }
 
-//    public static ArrayList unrepeated(List reArray, String[] firstNumList) {
-//        HashSet reSet = new HashSet(reArray);
-//        ArrayList NewArray = new ArrayList();
-//        System.out.println("Now is " + reSet.size());
-//        if (reSet.size() < reArray.size()) {
-//            int diff =  reArray.size() - reSet.size();
-//            NewArray.addAll(reSet);
-//            NewArray.addAll(createPhoneNumber(firstNumList, diff, false));
-//            System.out.println("this is "+ diff + "___" + NewArray.size());
-//            NewArray = unrepeated(NewArray, firstNumList);
-//
-//        }else{
-//            NewArray = (ArrayList) reArray;
-//        }
-//
-//        return NewArray;
-//    }
 
     private static ArrayList unrepeated(List reArray, String[] firstNumList) {
         HashSet reSet = new HashSet(reArray);
@@ -88,7 +91,7 @@ public class CreatePhoneTools {
 
 //    public static void main(String[] args) {
 //        String[] s = {"158", "132", "166"};
-//        ArrayList sss = (ArrayList) createPhoneNumber(s, 10, true);
+//        ArrayList sss = (ArrayList) createPhoneNumber(s, 1000000, true);
 //        System.out.println("最终结果 = " + new HashSet(sss).size());
 //        System.out.println(sss);
 //    }

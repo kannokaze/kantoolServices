@@ -1,5 +1,6 @@
 package com.coden.kantools.controller;
 
+
 import com.coden.kantools.service.ToolsService;
 import com.coden.kantools.service.jmx.MyDefaultGenerator;
 import org.apache.commons.io.IOUtils;
@@ -20,6 +21,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 @Controller
 @ResponseBody
@@ -153,8 +155,21 @@ public class ToolsController {
 
 
     @GetMapping("/customParameter")
-    public void customParameter() {
+    public void customParameter(String strJson) {
 
+        System.out.println(toolsService.getSwaggerJson1(strJson));
+    }
+
+
+    @GetMapping("/genPhoneNumber")
+    private ResponseEntity<byte[]> genPhoneNumber(int dataLength, boolean isUnrepeat, String dataForm) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDispositionFormData("attachment", URLEncoder.encode("", "UTF-8"));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        ArrayList<String> phoneNumberList = toolsService.createPhoneNumber(dataLength, isUnrepeat);
+        byte[] result = new byte[phoneNumberList.size()];
+        return new ResponseEntity<byte[]>(result, headers, HttpStatus.CREATED);
     }
 
 
