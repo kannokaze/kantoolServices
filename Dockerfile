@@ -24,7 +24,7 @@ EXPOSE 8080
 #应用构建成功后的jar文件被复制到镜像内，名字也改成了app.jar
 #ADD ${JAR_FILE} demo.jar
 #ADD /var/jenkins_home/workspace/测试/test1/target/kantools-0.0.1-SNAPSHOT.jar kantools.jar
-COPY /var/jenkins_home/workspace/测试/test1/target/kantools-0.0.1-SNAPSHOT.jar kantools.jar
+COPY ./target/raymedy.war kantools.jar
 
 #touch命令的作用是修改这个文件的访问时间和修改时间为当前时间，而不会修改文件的内容。
 #RUN bash -c 'touch /demo.jar'
