@@ -92,5 +92,9 @@ public class ToolsService {
         return null;
     }
 
+    public String getFileMD5() {
+        return "";
+    }
+
 
 }

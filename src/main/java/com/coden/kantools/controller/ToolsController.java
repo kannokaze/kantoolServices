@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 @Controller
@@ -170,6 +173,23 @@ public class ToolsController {
         ArrayList<String> phoneNumberList = toolsService.createPhoneNumber(dataLength, isUnrepeat);
         byte[] result = new byte[phoneNumberList.size()];
         return new ResponseEntity<byte[]>(result, headers, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/geFileMD5")
+    public ArrayList geFileMD5(MultipartFile[] files) throws Exception {
+        ArrayList MD5Result = new ArrayList();
+        MessageDigest mMessageDigest = MessageDigest.getInstance("MD5");
+        for (MultipartFile multipartFile : files) {
+            InputStream fis = multipartFile.getInputStream();
+            byte[] buffer = new byte[1024];
+            int length = -1;
+            while ((length = fis.read(buffer, 0, 1024)) > 0) {
+                mMessageDigest.update(buffer, 0, length);
+            }
+            MD5Result.add(new BigInteger(1, mMessageDigest.digest()).toString(16));
+            fis.close();
+        }
+        return MD5Result;
     }
 
 
